@@ -17,7 +17,7 @@ Slytherin it is!`,
     descriptions: [
       `So you think you are one of the good ones do you. Now, would a good one consider themself a good one?
 
-        ..Slytherin!`,
+..Slytherin!`,
       `So you are calling yourself brave, courageous and determined? Someone who would give themself those attributes must be
 
 
