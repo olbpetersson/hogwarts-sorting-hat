@@ -48,6 +48,6 @@ Slytherin it is!`,
 
 export const getIconUrl = (description: string): string => {
   return description.toLowerCase().indexOf("slytherin") > 1
-    ? "/slythering.png"
+    ? "/slytherin.png"
     : "/hufflepuff.png";
 };
