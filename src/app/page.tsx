@@ -49,8 +49,8 @@ export default function Home() {
             variant="outlined"
             style={{
               padding: 15,
-              minWidth: 600,
-              minHeight: 800,
+              minWidth: "20%",
+              minHeight: "80%",
               justifyContent: "space-between",
               display: "flex",
               flexDirection: "column",
@@ -108,8 +108,8 @@ export default function Home() {
             variant="outlined"
             style={{
               padding: 15,
-              minWidth: 600,
-              minHeight: 800,
+              minWidth: "20%",
+              minHeight: "80%",
               justifyContent: "space-between",
               display: "flex",
               flexDirection: "column",
