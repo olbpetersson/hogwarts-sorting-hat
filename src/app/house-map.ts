@@ -29,7 +29,7 @@ Slytherin it is!`,
       `You consider yourself clever? Just a little bit wiser and more intelligent than everyone else? I see what I see
 
 ... a Slytherin!`,
-      `You are smart enought to understand where I'm going to place you
+      `You are smart enough to understand where I'm going to place you
 
 ... a Slytherin!`,
     ],
