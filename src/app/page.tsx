@@ -97,6 +97,7 @@ export default function Home() {
             <Image
               className={styles.spinner}
               src="/broomstick.jpg"
+              priority={true}
               width={500}
               height={500}
               alt="A broomstick"
@@ -130,6 +131,7 @@ export default function Home() {
               }}
               alt="The chosen house"
               src={getIconUrl(description)}
+              priority={true}
               width={436}
               height={489}
             />
