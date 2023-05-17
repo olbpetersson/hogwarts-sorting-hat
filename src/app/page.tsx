@@ -1,95 +1,142 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import {
+  Card,
+  CssBaseline,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import styles from "./page.module.css";
+import { useState } from "react";
+import { getIconUrl, houseMap } from "./house-map";
+import Image from "next/image";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
 
 export default function Home() {
+  const [selectedChoice, setSelectedChoice] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>("");
+
+  const handleChange = async (event: SelectChangeEvent) => {
+    if (event.target.value) {
+      setLoading(true);
+      setSelectedChoice(event.target.value);
+      await new Promise((f) => setTimeout(f, 2500));
+      const index = Math.floor(Math.random() * 2);
+      setDescription(
+        houseMap[event.target.value].descriptions[index] as string
+      );
+      setLoading(false);
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <main className={styles.main}>
+        {!selectedChoice ? (
+          <Card
+            variant="outlined"
+            style={{
+              padding: 15,
+              minWidth: 600,
+              minHeight: 800,
+              justifyContent: "space-between",
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
-            By{' '}
+            <FormControl sx={{ alignSelf: "center", m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-simple-select-helper-label">
+                House
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                label="House"
+                onChange={handleChange}
+                value={selectedChoice}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {Object.keys(houseMap).map((key) => (
+                  <MenuItem key={key} value={key}>
+                    {key}
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>
+                What house do you feel like you would belong to?
+              </FormHelperText>
+            </FormControl>
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+              style={{
+                alignSelf: "flex-end",
+                background: "transparent",
+              }}
+              alt="A sorting hat"
+              priority={true}
+              src="/sortinghat.png"
+              width={400}
+              height={300}
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+          </Card>
+        ) : loading ? (
+          <div>
+            <Image
+              className={styles.spinner}
+              src="/broomstick.jpg"
+              width={500}
+              height={500}
+              alt="A broomstick"
+            />
+          </div>
+        ) : (
+          <Card
+            variant="outlined"
+            style={{
+              padding: 15,
+              minWidth: 600,
+              minHeight: 800,
+              justifyContent: "space-between",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <p
+              style={{
+                maxWidth: "400px",
+                margin: "50px",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {description}
+            </p>
+            <Image
+              style={{
+                alignSelf: "center",
+                background: "transparent",
+              }}
+              alt="The chosen house"
+              src={getIconUrl(description)}
+              width={436}
+              height={489}
+            />
+          </Card>
+        )}
+      </main>
+      ;
+    </ThemeProvider>
+  );
 }
