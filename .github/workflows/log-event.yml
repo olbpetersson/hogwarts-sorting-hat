@@ -15,4 +15,16 @@ jobs:
         run: |
           echo "$GITHUB_DEPLOYMENT"
           echo "$GITHUB_DEPLOYMENT_STATUS"
-
+  conditionally:
+    if: |
+      github.event.deployment_status.state == 'success' &&
+      contains(github.event.deployment_status.target_url, 'hogwarts')
+    name: Conditionally Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_DEPLOYMENT: ${{ toJson(github.event.deployment) }}
+          GITHUB_DEPLOYMENT_STATUS: ${{ toJson(github.event.deployment_status) }}
+        run: |
+          echo "Was run because the condition was met"
