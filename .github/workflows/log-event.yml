@@ -19,6 +19,7 @@ jobs:
     if: |
       github.event.deployment_status.state == 'success' &&
       contains(github.event.deployment_status.target_url, 'hogwarts')
+      contains(github.event.deployment_status.environment, 'Production')
     name: Conditionally Print
     runs-on: ubuntu-latest
     steps:
