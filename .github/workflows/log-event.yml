@@ -3,17 +3,6 @@ name: GH Actions playground
 on:
   deployment_status:
 jobs:
-  printJob:
-    name: Print event
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_DEPLOYMENT: ${{ toJson(github.event.deployment) }}
-          GITHUB_DEPLOYMENT_STATUS: ${{ toJson(github.event.deployment_status) }}
-        run: |
-          echo "$GITHUB_DEPLOYMENT"
-          echo "$GITHUB_DEPLOYMENT_STATUS"
   conditionally:
     if: |
       github.event.deployment_status.state == 'success' &&
@@ -27,4 +16,6 @@ jobs:
           GITHUB_DEPLOYMENT: ${{ toJson(github.event.deployment) }}
           GITHUB_DEPLOYMENT_STATUS: ${{ toJson(github.event.deployment_status) }}
         run: |
-          echo "Was run because the condition was met"
+          echo "Was run because the condition was met.. now I'm going to emulate a really slow test"
+          sleep 300
+          echo "Done sleeping"
