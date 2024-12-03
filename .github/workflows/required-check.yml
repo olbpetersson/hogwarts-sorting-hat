@@ -1,0 +1,11 @@
+name: GH Actions Required silly example
+
+on:
+  push:
+jobs:
+  required_check:
+    name: Required print
+    runs-on: ubuntu-latest
+    steps:
+        run: |
+          echo "Required check"
