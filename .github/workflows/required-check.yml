@@ -7,5 +7,6 @@ jobs:
     name: Required print
     runs-on: ubuntu-latest
     steps:
+      - name: Required check
         run: |
           echo "Required check"
